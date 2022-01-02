@@ -1,0 +1,33 @@
+{% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a 
+                href="?{{ page_obj.previous_page_number.querystring }}"
+                    >previous</a>
+            </li>
+
+        {% endif %}
+        {% for link_page in page_obj.pages %}
+            {% if link_page %}
+                {% if link_page == page_obj.number %}
+                    <li class="active"><a href="">{{ link_page }}</a></li>
+                {% else %}
+                    <li><a 
+                                href="?{{ link_page.querystring  }}"
+                            >{{ link_page }}</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                {# 省略された部分の表示内容 #}
+                <li class="disabled"><a href="#">...</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li><a 
+                        href="?{{ page_obj.next_page_number.querystring }}"
+                    >next</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
